@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_csv('Churn_Modelling.csv')
+dataset = pd.read_csv('/workspaces/Complete-Deep-Learning/ANN/Churn_Modelling.csv')
 X = dataset.iloc[:, 3:13]
 y = dataset.iloc[:, 13]
 
@@ -48,25 +48,25 @@ from keras.layers import Dropout
 classifier = Sequential()
 
 # Adding the input layer and the first hidden layer
-classifier.add(Dense(output_dim = 6, init = 'he_uniform',activation='relu',input_dim = 11))
+classifier.add(Dense(units=6, kernel_initializer = 'he_uniform',activation='relu',input_dim = 11))
 
 # Adding the second hidden layer
-classifier.add(Dense(output_dim = 6, init = 'he_uniform',activation='relu'))
+classifier.add(Dense(units=6, kernel_initializer = 'he_uniform',activation='relu'))
 # Adding the output layer
-classifier.add(Dense(output_dim = 1, init = 'glorot_uniform', activation = 'sigmoid'))
+classifier.add(Dense(units=1, kernel_initializer = 'glorot_uniform', activation = 'sigmoid'))
 
 # Compiling the ANN
 classifier.compile(optimizer = 'Adamax', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
 # Fitting the ANN to the Training set
-model_history=classifier.fit(X_train, y_train,validation_split=0.33, batch_size = 10, nb_epoch = 100)
+model_history=classifier.fit(X_train, y_train,validation_split=0.33, batch_size = 10, epochs = 100)
 
 # list all data in history
 
 print(model_history.history.keys())
 # summarize history for accuracy
-plt.plot(model_history.history['acc'])
-plt.plot(model_history.history['val_acc'])
+plt.plot(model_history.history['accuracy'])
+plt.plot(model_history.history['val_accuracy'])
 plt.title('model accuracy')
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
